@@ -1,0 +1,67 @@
+#The simulator will associate each explanation in this file with a stage in the execution by the order it appears
+#in this file. The first explanation here will always appear in the explanation box in the first stage of the fetch
+#(MAR <-- [PC]). The second explanation will appear in the second fetch stage (PC <-- [PC]+1; MBR <--[Memory]). Etc.
+#The comments here indicate which stage the explanation below it will appear during. Don't delete them.
+#Any line that isn't a blank line and doesn't start with # will be interpretted as an explanation. Each explanation
+#must be contained in one line. Any modifications to them will appear next time the simulation is opened.
+
+#FETCH: MAR <-- [PC]
+Select the memory cell containing the next instruction by copying that cell's address to the MAR. This address is alerady held in the program counter.
+
+#FETCH: PC <-- [PC]+1; MBR <--[Memory]
+Increment the PC by 1 so that it points to the right instruction for the next cycle. Also get the instruction for this cycle from memory (the correct cell is already highlighted by the MAR) - copy it into the MBR.
+
+#FETCH: CIR <-- [MBR]
+Copy the MBR's value into the CIR (current instruction register), where it can be decoded and executed.
+
+
+#EXECUTE: any stage where MAR <-- [OPERAND]. This happens in the execution of several instructions.
+Copy the opperand part of the instruction into the MAR, so that correct memory cell is selected. This cell will be used in some way by the instruction.
+
+#EXECUTE: the simulator is now waiting for input. It won't continue until a value is entered.
+Enter a value into the input text field.
+
+#EXECUTE: negating ADD2 during the SUB instruction.
+Negate the number to be subtracted. Computers cannot subtract, only add, so to subtract they must add a negative number. x-y = x+(-y). This step converts y to -y.
+
+#EXECUTE: copying the value from the input box to the MBR
+Entering your value into the MBR, ready to be copied into memory.
+
+#EXECUTE: copying the MBR's value into memory
+Copy the MBR's contents into the appropriate memory cell.
+
+#EXECUTE: sending the MBR's value to the output box
+Output the contents of the MBR.
+
+#EXECUTE: copying a memory value into the MBR
+Copy the contents of the selected memory cell into the MBR. Data travelling between the processor and main memory always travels via the MBR. This allows them to \nwork together despite small differences in the speed at which they work.
+
+#EXECUTE: copying the accumulator's value into the MBR
+Copy the accumulator's contents into the MBR, so they can be stored in main memory.
+
+#EXECUTE: negating the accumulator's contents (the only step in NEG instruction)
+Negate the the accumulator's contents.
+
+#EXECUTE: copying the MBR's value into the accumulator
+Copy the MBR's contents into the accumulator, so that numbers can be added to them.
+
+#EXECUTE: load the adders from the accumulator and the operand. Occurs during ADN execution.
+Load the adders. This time, the accumulator's value will be added to that of the operand. Most CPU diagrams have an add/sub unit of some kind, in this simulation, it's simply shown as two registers, the contents of which are added. The mechanism by which they're added is not shown here.
+
+#EXECUET: load the adders from the accumulator and the MBR. Occurs during ADL execution
+Load the adders. This time, the accumulator's value is added to that of a nuber stored in memory. Most CPU diagrams have an add/sub unit of some kind, in this simulation, it's simply shown as two registers, the contents of which are added. The mechanism by which they're added is not shown here.
+
+#EXECUTE: adding the values in the adders and storing the result in the accumulator.
+Add the values in the two adders and write the result in the accumulator.
+
+#EXECUTE: copying the operand's value into the PC. This happens in JMP, and in JPZ and JPN if the conditions are correct.
+Copy the PC's contents into the PC. Doing this changes which instruction will be fetched next cycle, allowing the program to branch. Normally instructions are fetched one after another, consecutively, but changing the program counter allows you to fetch any instruction next.
+
+#EXECUTE: Explanation that appears when JPN is executed and the accumulator isn't negative, so no jump occurs.
+This instruction only changes the PC if the accumulator's contents are negative. In this case they're not, so nothing happens.
+
+#EXECUTE: Explanation that appears when JPZ is executed and the accumulator isn't 0, so no jump occurs.
+This instruction only changes the PC if the accumulator's contents are 0. In this case they're not, so nothing happens.
+
+#EXECUTE: Explanation that appears when a halt instruction is reached.
+Program has ended.
